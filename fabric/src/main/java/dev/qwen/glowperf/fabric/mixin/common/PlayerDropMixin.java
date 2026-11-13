@@ -17,13 +17,13 @@ public abstract class PlayerDropMixin {
       cancellable = true
    )
    private void glowperf$blockProtectedBook(ItemStack stack, boolean dropAround, CallbackInfoReturnable<ItemEntity> cir) {
-      if (!MapEvents.isProtectedBook(stack)) {
+      if (!MapEvents.isProtectedBook(stack) || MapEvents.isInternalDrop()) {
          return;
       }
 
       Player self = (Player)(Object)this;
       if (!self.level().isClientSide) {
-         self.getInventory().placeItemBackInInventory(stack.copy());
+         MapEvents.returnBook(self, stack);
       }
 
       cir.setReturnValue(null);

@@ -1,12 +1,17 @@
 package dev.qwen.glowperf.perf.client.map;
 
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.phys.AABB;
 
 public final class MapEvents {
    private static final String MANUAL_TITLE = "GlowPerf 手册 Manual";
@@ -15,27 +20,61 @@ public final class MapEvents {
    private static final String LEGACY_MANUAL_TITLE = "光影性能核心 · 手册";
    private static final String AUTHOR = "GlowPerf";
    private static final String PROTECTED_KEY = "glowperf_book";
+   private static final long RETRY_NS = 60000000000L;
+   private static final Map<UUID, Long> RETRY_AT = new ConcurrentHashMap<>();
+   private static boolean internalDrop;
 
    private MapEvents() {
    }
 
    public static void onLogin(Player player) {
       if (player != null) {
+         RETRY_AT.remove(player.getUUID());
          ensureBooks(player);
       }
    }
 
    /** 三本书缺任意一本就视为丢失，立即补发。 */
    public static void ensureBooks(Player player) {
-      if (player != null && !hasAllBooks(player)) {
-         try {
-            removeOldBooks(player);
-            giveBook(player, createBook(MANUAL_TITLE, manualPages()));
-            giveBook(player, createBook(CHANGELOG_TITLE, changelogPages()));
-            giveBook(player, createBook(DEVELOPER_TITLE, developerPages()));
-         } catch (Throwable ignored) {
+      if (player == null || hasAllBooks(player)) {
+         return;
+      }
+
+      UUID id = player.getUUID();
+      Long retryAt = RETRY_AT.get(id);
+      if (retryAt != null && System.nanoTime() < retryAt) {
+         return;
+      }
+
+      if (hasDroppedBookNearby(player)) {
+         return;
+      }
+
+      try {
+         removeOldBooks(player);
+         boolean dropped = !giveBook(player, createBook(MANUAL_TITLE, manualPages()));
+         dropped |= !giveBook(player, createBook(CHANGELOG_TITLE, changelogPages()));
+         dropped |= !giveBook(player, createBook(DEVELOPER_TITLE, developerPages()));
+         if (dropped) {
+            RETRY_AT.put(id, System.nanoTime() + RETRY_NS);
+         } else {
+            RETRY_AT.remove(id);
+         }
+      } catch (Throwable ignored) {
+      }
+   }
+
+   /** 掉在地上的书还在附近时不重复发放，避免刷物品。 */
+   private static boolean hasDroppedBookNearby(Player player) {
+      AABB box = player.getBoundingBox().inflate(16.0);
+
+      for (ItemEntity item : player.level().getEntitiesOfClass(ItemEntity.class, box)) {
+         if (isOurBook(item.getItem())) {
+            return true;
          }
       }
+
+      return false;
    }
 
    /** 三本书缺任意一本就视为丢失，下次登录补发。 */
@@ -58,10 +97,40 @@ public final class MapEvents {
       return manual && changelog && developer;
    }
 
-   /** 背包满时掉落到脚下，避免三本书被静默丢弃。 */
-   private static void giveBook(Player player, ItemStack book) {
-      if (!player.addItem(book)) {
+   /** 背包满时掉落到脚下；返回是否真正放进了背包。 */
+   private static boolean giveBook(Player player, ItemStack book) {
+      if (player.addItem(book)) {
+         return true;
+      }
+
+      internalDrop = true;
+
+      try {
          player.drop(book, false);
+      } finally {
+         internalDrop = false;
+      }
+
+      return false;
+   }
+
+   /** 模组自己放书时放行，避免与"禁止丢弃"互相递归。 */
+   public static boolean isInternalDrop() {
+      return internalDrop;
+   }
+
+   /** 把被拦下的书放回背包；没有空位就放弃，交给后续补发。 */
+   public static void returnBook(Player player, ItemStack book) {
+      if (player.getInventory().getFreeSlot() == -1) {
+         return;
+      }
+
+      internalDrop = true;
+
+      try {
+         player.getInventory().placeItemBackInInventory(book.copy());
+      } finally {
+         internalDrop = false;
       }
    }
 

@@ -42,13 +42,13 @@ public final class ForgeCommonEvents {
    @SubscribeEvent
    public static void onItemToss(ItemTossEvent event) {
       ItemStack stack = event.getEntity().getItem();
-      if (!MapEvents.isProtectedBook(stack)) {
+      if (!MapEvents.isProtectedBook(stack) || MapEvents.isInternalDrop()) {
          return;
       }
 
       event.setCanceled(true);
       if (!event.getPlayer().level().isClientSide()) {
-         event.getPlayer().getInventory().placeItemBackInInventory(stack.copy());
+         MapEvents.returnBook(event.getPlayer(), stack);
       }
    }
 
