@@ -15,6 +15,7 @@ public final class MapEvents {
    private static final Set<UUID> GIVEN = new HashSet<>();
    private static final String MANUAL_TITLE = "GlowPerf 手册 Manual";
    private static final String CHANGELOG_TITLE = "GlowPerf 更新日志 Changelog";
+   private static final String DEVELOPER_TITLE = "GlowPerf 开发构建 Guide";
    private static final String LEGACY_MANUAL_TITLE = "光影性能核心 · 手册";
    private static final String AUTHOR = "GlowPerf";
 
@@ -29,6 +30,7 @@ public final class MapEvents {
                removeOldBooks(player);
                player.addItem(createBook(MANUAL_TITLE, manualPages()));
                player.addItem(createBook(CHANGELOG_TITLE, changelogPages()));
+               player.addItem(createBook(DEVELOPER_TITLE, developerPages()));
             } catch (Throwable ignored) {
             }
          }
@@ -59,6 +61,7 @@ public final class MapEvents {
       String title = tag.getString("title");
       return MANUAL_TITLE.equals(title)
          || CHANGELOG_TITLE.equals(title)
+         || DEVELOPER_TITLE.equals(title)
          || LEGACY_MANUAL_TITLE.equals(title)
          || title.startsWith("光影性能核心");
    }
@@ -121,6 +124,18 @@ public final class MapEvents {
          "§6§l2026-11-12§r\n§0v2.1.0§r\n§7中 / CN§r\n§0新增小地图与路点§r\n§0新增 HUD 位置编辑§r\n§0光影默认开启§r\n§0新增性能档位指令§r\n§0删除旧光影性能指令§r\n§0手册扩写并加颜色§r\n§7EN§r\n§0Minimap, waypoints, HUD§r\n§0editor. Glow on by default.§r\n§0Performance presets. Legacy§r\n§0commands removed.§r",
 
          "§6§l2026-11-10§r\n§0v2.1.0§r\n§7中 / CN§r\n§0首个版本§r\n§0物品光影与 Bloom§r\n§0实体与玩家剔除§r\n§0新生物生成护栏§r\n§0闲置 AI 冻结§r\n§0帧时间诊断§r\n§7EN§r\n§0First release: item glow,§r\n§0culling, spawn guard, idle§r\n§0AI freeze, frame time stats.§r"
+      };
+   }
+
+   private static String[] developerPages() {
+      return new String[]{
+         "§6§l开发 构建§r\n§0Dev & Build§r\n§0源码仓库 Repo§r\n§bgithub.com/leittleP/§r\n§bglowperf-mod§r\n§7中 / CN§r\n§0需要 JDK 17§r\n§0Gradle Wrapper 8.10.2§r\n§7EN§r\n§0JDK 17 required.§r\n§0Gradle wrapper 8.10.2.§r",
+
+         "§6§l构建命令§r\n§0Build commands§r\n§7中 / CN§r\n§b./gradlew :forge:build§r\n§b -Ploaders=forge§r\n§0依次构建四种加载器§r\n§0每次只构建一个§r\n§7EN§r\n§0Build one loader per run:§r\n§b-Ploaders=forge§r\n§0neoforge, fabric, quilt§r\n§0Forge and NeoForge must not§r\n§0share one invocation.§r",
+
+         "§6§lCI 自动构建§r\n§0GitHub Actions§r\n§7中 / CN§r\n§0推送 v* 标签§r\n§0自动构建四个 jar§r\n§0并发布到 Release§r\n§0也可 workflow_dispatch§r\n§7EN§r\n§0Push a v* tag to build all§r\n§0four jars and publish the§r\n§0release. Manual runs use§r\n§0workflow_dispatch.§r",
+
+         "§6§l模块结构§r\n§0Modules§r\n§7中 / CN§r\n§0common 公共逻辑§r\n§0forge neoforge FML§r\n§0fabric quilt Loom§r\n§0产物名带 mc1.20.1§r\n§7EN§r\n§0common: shared logic§r\n§0forge & neoforge: FML§r\n§0fabric & quilt: Loom§r\n§0Jar names include the MC§r\n§0version.§r"
       };
    }
 }

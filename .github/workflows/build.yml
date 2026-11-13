@@ -32,8 +32,17 @@ jobs:
         with:
           cache-read-only: false
 
-      - name: Build all loaders
-        run: ./gradlew build -Ploaders=forge,neoforge,fabric,quilt --no-daemon --stacktrace
+      - name: Build Forge
+        run: ./gradlew :forge:build -Ploaders=forge --stacktrace
+
+      - name: Build NeoForge
+        run: ./gradlew :neoforge:build -Ploaders=neoforge --stacktrace
+
+      - name: Build Fabric
+        run: ./gradlew :fabric:build -Ploaders=fabric --stacktrace
+
+      - name: Build Quilt
+        run: ./gradlew :quilt:build -Ploaders=quilt --stacktrace
 
       - name: Collect jars
         run: |
