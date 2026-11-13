@@ -224,15 +224,29 @@ public final class MapEvents {
 
    private static String[] changelogPages() {
       return new String[]{
-         "§6§l更新日志§r\n§0Changelog§r\n§0有问题请联系 Issues:§r\n§bmc_xiaopjingcai@outlook.com§r\n§0或 / or§r\n§bmc_xiaopjingcai@hotmail.com§r\n§e请翻下一页才是更新日志§r\n§eTurn the page for the log§r",
+         "§4§l更新日志§r\n§0Changelog§r\n§0有问题请联系§r\n§1§lmc_xiaopjingcai@outlook.com§r\n§0或 / or§r\n§1§lmc_xiaopjingcai@hotmail.com§r\n§2请翻下一页才是更新日志§r\n§3Turn the page for the log§r",
 
-         "§6§l2026-11-13§r\n§0v2.1.0§r\n§7中 / CN§r\n§0支持 Forge NeoForge§r\n§0Fabric Quilt 四种加载器§r\n§0每个加载器单独 jar§r\n§0jar 名带 MC 版本§r\n§0手册与日志改为双语§r\n§7EN§r\n§0Four loaders supported, one§r\n§0jar each. Jar names include§r\n§0the MC version. Books are§r\n§0bilingual.§r",
+         "§4§l2026-11-13§r\n§0v2.1.0§r\n§2中 / CN§r\n§0支持四种加载器§r\n§0Forge NeoForge§r\n§0Fabric Quilt§r\n§0每个加载器单独 jar§r\n§0jar 名带 MC 版本§r\n§0书本改为双语§r\n§3EN§r\n§0Four loaders, one jar each.§r\n§0Jar names include the MC§r\n§0version. Books are bilingual.§r",
 
-         "§6§l2026-11-13 修复§r\n§0Fixes§r\n§7中 / CN§r\n§0三本书不可丢弃§r\n§0不可合成 不可清空§r\n§0放入容器会退回背包§r\n§0/clear 后 2 秒内补回§r\n§0修复背包满时刷书§r\n§0修复丢书递归崩溃§r\n§7EN§r\n§0Books cannot be dropped,§r\n§0crafted or cleared.§r\n§0Container moves are reverted.§r\n§0Missing books return in 2s.§r\n§0Fixed infinite book drops.§r",
+         "§4§l2026-11-13 修复§r\n§0Fixes§r\n§2中 / CN§r\n§0书不可丢弃§r\n§0不可合成 不可清空§r\n§0放入容器会退回§r\n§0/clear 后 2 秒补回§r\n§0修复背包满时刷书§r\n§0修复丢书递归崩溃§r\n§3EN§r\n§0Books cannot be dropped,§r\n§0crafted or cleared.§r\n§0Container moves revert.§r\n§0Missing books return in 2s.§r",
 
-         "§6§l2026-11-12§r\n§0v2.1.0§r\n§7中 / CN§r\n§0新增小地图与路点§r\n§0新增 HUD 位置编辑§r\n§0光影默认开启§r\n§0新增性能档位指令§r\n§0删除旧光影性能指令§r\n§0手册扩写并加颜色§r\n§7EN§r\n§0Minimap, waypoints, HUD§r\n§0editor. Glow on by default.§r\n§0Performance presets. Legacy§r\n§0commands removed.§r",
+         "§4§l2026-11-12§r\n§0v2.1.0§r\n§2中 / CN§r\n§0新增小地图与路点§r\n§0新增 HUD 位置编辑§r\n§0光影默认开启§r\n§0新增性能档位指令§r\n§0删除旧光影性能指令§r\n§0手册扩写并加颜色§r\n§3EN§r\n§0Minimap and waypoints.§r\n§0HUD editor. Glow on by§r\n§0default. Performance presets.§r",
 
-         "§6§l2026-11-10§r\n§0v2.1.0§r\n§7中 / CN§r\n§0首个版本§r\n§0物品光影与 Bloom§r\n§0实体与玩家剔除§r\n§0新生物生成护栏§r\n§0闲置 AI 冻结§r\n§0帧时间诊断§r\n§7EN§r\n§0First release: item glow,§r\n§0culling, spawn guard, idle§r\n§0AI freeze, frame time stats.§r"
+         "§4§l2026-11-10§r\n§0v2.1.0§r\n§2中 / CN§r\n§0首个版本§r\n§0物品光影与 Bloom§r\n§0实体与玩家剔除§r\n§0新生物生成护栏§r\n§0闲置 AI 冻结§r\n§0帧时间诊断§r\n§3EN§r\n§0First release: item glow,§r\n§0culling, spawn guard, idle§r\n§0AI freeze, frame stats.§r",
+
+         "§4§l2026-11-02§r\n§0旧版 v3.0.2§r\n§2中 / CN§r\n§0书本改为深色配色§r\n§0浅底上亮色看不清§r\n§0标题 正文 指令分层§r\n§0指令行深蓝加粗§r\n§3EN§r\n§0Dark palette for books.§r\n§0Bold headers, commands§r\n§0in bold blue.§r",
+
+         "§4§l2026-11-01§r\n§0旧版 v3.0.1§r\n§2中 / CN§r\n§1/gp posedit§0 布局调整§r\n§0✓ 保存 ✗ 放弃§r\n§0手册补上指令行§r\n§3EN§r\n§1/gp posedit§0 opens the§r\n§0layout editor. ✓ saves,§r\n§0✗ cancels. Manual updated.§r",
+
+         "§4§l2026-11-01§r\n§0旧版 v3.0.0§r\n§2中 / CN§r\n§0新增小地图§r\n§0拖动 缩放 点击取点§r\n§0坐标与玩家传送§r\n§0六色实体标记§r\n§0Y<0 洞穴 自动恢复§r\n§0维度与群系识别§r\n§3EN§r\n§0Minimap with pan, zoom§r\n§0and click to pick. Teleports,§r\n§0markers, cave mode.§r",
+
+         "§4§l2026-11-01§r\n§0旧版 v3.0.0§r\n§2中 / CN§r\n§0光影与性能指令改名§r\n§1/light and shadow§r\n§1/performance optimization§r\n§0删除旧指令与按键§r\n§0手册与日志改为双语§r\n§3EN§r\n§0New command names.§r\n§0Legacy commands and all§r\n§0keybinds removed.§r",
+
+         "§4§l2026-10-26§r\n§0旧版 v2.0.0§r\n§2中 / CN§r\n§0光影与性能合并为 jar§r\n§0修复指令注册崩溃§r\n§0改为同进程直连§r\n§0新增 XYZ 坐标显示§r\n§0Forge 服务端启动验证§r\n§3EN§r\n§0Merged both mods into one§r\n§0jar. Fixed command crash.§r\n§0Added XYZ readout.§r",
+
+         "§4§l2026-10-25§r\n§0旧版 v1.0.1§r\n§2中 / CN§r\n§0性能核心首次发布§r\n§0远处生物渲染剔除§r\n§0堆内存看护§r\n§0帧时间 TPS 诊断§r\n§0仿 VR 性能面板§r\n§0修复配置重写回环§r\n§3EN§r\n§0Perf Core: culling, heap§r\n§0watch, frame and TPS stats.§r\n§0Fixed config write loop.§r",
+
+         "§4§l2026-10-25§r\n§0旧版 v1.0.0§r\n§2中 / CN§r\n§0物品光影首次发布§r\n§0自研 Bloom 管线§r\n§0手持光晕§r\n§0掉落物高亮描边§r\n§0动态受光高光§r\n§0图标发光§r\n§0不依赖光影模组§r\n§3EN§r\n§0Item Glow: self-built bloom§r\n§0and highlight, no shader mod§r\n§0required.§r"
       };
    }
 
