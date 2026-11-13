@@ -13,28 +13,29 @@ import net.minecraft.world.item.Items;
 
 public final class MapEvents {
    private static final Set<UUID> GIVEN = new HashSet<>();
-   private static final String BOOK_TITLE = "光影性能核心 · 手册";
+   private static final String MANUAL_TITLE = "GlowPerf 手册 Manual";
+   private static final String CHANGELOG_TITLE = "GlowPerf 更新日志 Changelog";
+   private static final String LEGACY_MANUAL_TITLE = "光影性能核心 · 手册";
+   private static final String AUTHOR = "GlowPerf";
 
    private MapEvents() {
    }
 
    public static void onLogin(Player player) {
       if (player != null) {
-         UUID var2 = player.getUUID();
-         if (!GIVEN.contains(var2)) {
-            GIVEN.add(var2);
-
+         UUID id = player.getUUID();
+         if (GIVEN.add(id)) {
             try {
                removeOldBooks(player);
-               ItemStack var3 = createBook();
-               player.addItem(var3);
-            } catch (Throwable var4) {
+               player.addItem(createBook(MANUAL_TITLE, manualPages()));
+               player.addItem(createBook(CHANGELOG_TITLE, changelogPages()));
+            } catch (Throwable ignored) {
             }
          }
       }
    }
 
-   /** 清掉背包里所有旧版/重复的手册，保证只留新发的一本。 */
+   /** 清掉背包里所有旧版/重复的手册与更新日志，保证只留新发的两本。 */
    private static void removeOldBooks(Player player) {
       Inventory inv = player.getInventory();
 
@@ -51,43 +52,75 @@ public final class MapEvents {
       }
 
       CompoundTag tag = stack.getTag();
-      return tag != null && BOOK_TITLE.equals(tag.getString("title"));
-   }
-
-   private static ItemStack createBook() {
-      ItemStack var0 = new ItemStack(Items.WRITTEN_BOOK);
-      CompoundTag var1 = var0.getOrCreateTag();
-      if (var1 == null) {
-         var1 = new CompoundTag();
+      if (tag == null) {
+         return false;
       }
 
-      var1.putString("title", BOOK_TITLE);
-      var1.putString("author", "GlowPerf");
-      var1.putByte("resolved", (byte)1);
-      ListTag var2 = new ListTag();
-
-      for (String page : pages()) {
-         var2.add(StringTag.valueOf(page));
-      }
-      var1.put("pages", var2);
-      var0.setTag(var1);
-      return var0;
+      String title = tag.getString("title");
+      return MANUAL_TITLE.equals(title)
+         || CHANGELOG_TITLE.equals(title)
+         || LEGACY_MANUAL_TITLE.equals(title)
+         || title.startsWith("光影性能核心");
    }
 
-   private static String[] pages() {
+   private static ItemStack createBook(String title, String[] pages) {
+      ItemStack book = new ItemStack(Items.WRITTEN_BOOK);
+      CompoundTag tag = book.getOrCreateTag();
+      tag.putString("title", title);
+      tag.putString("author", AUTHOR);
+      tag.putByte("resolved", (byte) 1);
+
+      ListTag list = new ListTag();
+      for (String page : pages) {
+         list.add(StringTag.valueOf(page));
+      }
+
+      tag.put("pages", list);
+      book.setTag(tag);
+      return book;
+   }
+
+   private static String[] manualPages() {
       return new String[]{
-         "§6§l光影性能核心 §r§7v2.1.0§r\n§7使用手册§r\n\n本书记录全部功能与指令\n\n优化档位\n§b/performance optimization§r\n  关闭·轻度·中度·重度\n  无所谓·自动\n光影 §b/light and shadow§r\n  open·off·auto\n§7下一页看详细说明§r",
-         "§e小地图 · 打开与关闭§r\n\n§b/open the map§r\n  打开全屏小地图\n§b/close the map§r\n  关闭小地图\n\nEsc 或右上角 x 也可关闭\n\n会记住缩放与平移位置，\n下次打开从上次视角继续。",
-         "§e地图按钮（3×3）§r\n\n§b坐标§r 输入 X/Y/Z 传送\n§b玩家§r 选择在线玩家传送\n§b路点§r 打开路点列表\n  点整行传送，点 x 删除\n§b洞穴§r 手动切换洞穴模式\n  再按一次回到自动\n§b立体§r 立体着色开关\n§b标记§r 实体标记总开关\n§b缩小/放大§r 缩放\n§b回中§r 视角回到玩家\n§7右上角 x = 关闭地图§r",
-         "§e地图操作§r\n\n§b左键单击§r 传送到该点\n§b右键单击§r 在该点加路点\n§b按住拖动§r 平移地图\n§b滚轮§r 缩放 0.5~16 倍\n\n缩放用「缩小/放大」按钮，\n回中用「回中」按钮，\n路点用「路点」按钮。\n\n鼠标悬停可看：\nX/Z、距离、区块、群系\n右上角显示比例尺",
-         "§e标记与洞穴模式§r\n\n实体标记颜色：\n§6橙 = 掉落物§r\n§5紫 = 刷怪笼§r\n§c红 = 敌对生物§r\n§a绿 = 友好生物§r\n\n§b洞穴模式§r（Y<0 自动）\n地图变暗，仍标记实体\n回到 Y≥0 自动恢复\n想锁定就按「洞穴」按钮",
-         "§e区块与高度§r\n\n地图按 16×16 区块铺开，\n细线就是区块边界。\n\n放大到 §b6 倍以上§r 时，\n每个区块中心显示\n区块坐标，例如 §b3,-2§r\n\n顶部标题显示当前维度，\n第二行显示玩家坐标、\nY 与所在生物群系。",
-         "§e常驻小地图§r\n\n§b/minimap§r 开关\n/minimap on|off|toggle\n\n左上角常驻俯视小图，\n显示维度、群系、Y、\n实体标记、路点、洞穴模式。\n\n位置大小用 §b/gp posedit§r\n拖动调整（map.hud*）",
-         "§e路点 /wp§r\n\n§b/wp add <名字>§r\n  在当前位置添加路点\n§b/wp list§r 列出全部\n§b/wp tp <名字>§r 传送\n§b/wp del <名字>§r 删除\n\n右键地图可直接添加，\n同名路点会被覆盖。\n最多 64 个，自动保存。\n跨维度会提示先换维度。",
-         "§e光影 /light and shadow§r\n\n§b/light and shadow open§r\n  开启（默认）\n§b/light and shadow off§r\n  关闭\n§b/light and shadow auto§r\n  按帧时间自动开关\n§b/light and shadow fps on|off§r\n  帧率面板\n§b/light and shadow settings§r\n  光影设置界面\n效果：物品光晕、掉落物描边。",
-         "§e优化档位§r\n\n§b/performance optimization§r\n  §boff§r 关闭优化\n  §bmild§r 轻度\n  §bmoderate§r 中度\n  §bsevere§r 重度\n  §bt matter§r 无所谓\n  §bauto§r 自动\n强度：无所谓>重度>中度\n>轻度>关闭；自动按帧时间\n在区间内收放。",
-         "§e综合 /gp§r\n\n§b/gp scan§r 一键体检\n§b/gp top§r 实体来源排名\n§b/gp slow§r 卡顿快照\n§b/gp posedit§r 调整面板位置\n\n§e面板 /perf§r\n§b/perf on|off§r 总开关\n§b/perf panel|coords on|off§r\n§b/perf compact on|off§r 紧凑\n§b/perf distance§r 16~256\n§b/perf settings§r 设置界面\n§b/perf save§r 写入配置文件",
-         "§e传送说明§r\n\n模组不校验权限，直接执行\n原版 /tp，需允许传送。\n\n§b单人§r 创建时勾选允许作弊；\n已有存档：Esc → 对局域网\n开放 → 允许作弊。\n\n§b服务器§r 需要 OP 权限。\n\n§7祝你游戏愉快！§r"
+         "§6§l光影性能核心§r\n§0GlowPerf 手册 Manual§r\n§0v2.1.0 · MC 1.20.1§r\n§7中 / CN§r\n§0全部功能走指令，无按键§r\n§b/perf help§r\n§b/gp help§r\n§7EN§r\n§0Commands only, no keys.§r\n§b/perf help§r\n§b/gp help§r",
+
+         "§6§l小地图 Minimap§r\n§7中 / CN§r\n§b/open the map§0 打开§r\n§b/close the map§0 关闭§r\n§b/minimap on|off§0 常驻§r\n§0Esc 或右上 x 关闭§r\n§0记住缩放与平移§r\n§7EN§r\n§b/open the map§0 open§r\n§b/close the map§0 close§r\n§b/minimap on|off§0 corner§r\n§0Esc or x closes it.§r",
+
+         "§6§l地图按钮 1 Map§r\n§7中 / CN§r\n§b坐标§0 X Y Z 传送§r\n§b玩家§0 在线玩家传送§r\n§b路点§0 列表 / 删除§r\n§b洞穴§0 锁定洞穴模式§r\n§b立体§0 立体着色§r\n§7EN§r\n§bXYZ§0 teleport by coords§r\n§bPlayer§0 player teleport§r\n§bWaypoint§0 list / delete§r\n§bCave§0 lock cave mode§r\n§b3D§0 stereo shading§r",
+
+         "§6§l地图按钮 2 Map§r\n§7中 / CN§r\n§b标记§0 实体标记开关§r\n§b缩小§0 缩小地图§r\n§b放大§0 放大地图§r\n§b回中§0 回到玩家§r\n§0右上 x 关闭地图§r\n§7EN§r\n§bMarkers§0 toggle markers§r\n§bZoom-§0 zoom out§r\n§bZoom+§0 zoom in§r\n§bCenter§0 back to player§r\n§0x at top right closes§r",
+
+         "§6§l地图操作 Controls§r\n§7中 / CN§r\n§b左键§0 点击传送§r\n§b右键§0 添加路点§r\n§b拖动§0 平移地图§r\n§b滚轮§0 缩放 0.5~16§r\n§0悬停看坐标 距离 区块 群系§r\n§7EN§r\n§bLeft click§0 teleport§r\n§bRight click§0 waypoint§r\n§bDrag§0 pan the map§r\n§bWheel§0 zoom 0.5-16§r",
+
+         "§6§l标记与洞穴§r\n§0Markers & cave§r\n§7中 / CN§r\n§6橙§0 掉落物§r\n§5紫§0 刷怪笼§r\n§c红§0 敌对§r\n§a绿§0 友好§r\n§0Y<0 自动洞穴，Y≥0 恢复§r\n§7EN§r\n§6Orange§0 items§r\n§5Purple§0 spawner§r\n§cRed§0 hostile§r\n§aGreen§0 passive§r\n§0Y<0 cave mode, auto restore§r",
+
+         "§6§l区块与高度§r\n§0Chunks & height§r\n§7中 / CN§r\n§0地图按 16×16 区块铺开§r\n§0细线为区块边界§r\n§0放大 6 倍显示区块坐标§r\n§0顶部显示维度 坐标 Y 群系§r\n§7EN§r\n§0Map is drawn in 16x16 chunks.§r\n§0Thin lines are borders.§r\n§0Zoom 6x+ shows chunk IDs.§r\n§0Header: dimension, pos, Y,§r\n§0biome.§r",
+
+         "§6§l路点 Waypoints§r\n§7中 / CN§r\n§b/wp add 名字§r\n§b/wp list§r\n§b/wp tp 名字§r\n§b/wp del 名字§r\n§0最多 64 个，自动保存§r\n§7EN§r\n§b/wp add name§0 create§r\n§b/wp list§0 list§r\n§b/wp tp name§0 teleport§r\n§b/wp del name§0 delete§r\n§0Up to 64, auto saved.§r",
+
+         "§6§l光影 Glow§r\n§7中 / CN§r\n§0默认开启§r\n§b/light and shadow§r\n§0 open 开 · off 关§r\n§0 auto 自动§r\n§0 fps on|off 帧率§r\n§0 settings 设置§r\n§7EN§r\n§0On by default.§r\n§b/light and shadow§r\n§0 open · off · auto§r\n§0 fps on|off · settings§r",
+
+         "§6§l性能档位 Presets§r\n§7中 / CN§r\n§b/performance optimization§r\n§0 off 关闭§r\n§0 mild 轻度§r\n§0 moderate 中度§r\n§0 severe 重度§r\n§0 t matter 无所谓§r\n§0 auto 自动§r\n§7EN§r\n§0Strength: t matter > severe§r\n§0> moderate > mild > off.§r\n§0auto follows frame time.§r",
+
+         "§6§l面板 诊断 HUD§r\n§7中 / CN§r\n§b/perf help§0 指令§r\n§b/perf settings§0 面板§r\n§b/perf on|off§0 总开关§r\n§b/perf save§0 保存§r\n§b/gp scan§0 体检§r\n§b/gp top§0 来源§r\n§b/gp slow§0 长帧§r\n§7EN§r\n§bhelp / settings / save§r\n§bscan / top / slow§0 diagnostics§r",
+
+         "§6§l面板位置编辑§r\n§0HUD editor§r\n§7中 / CN§r\n§b/gp posedit§0 进入编辑§r\n§0拖动面板到目标位置§r\n§c✕§0 取消还原§r\n§a✓§0 保存位置§r\n§7EN§r\n§b/gp posedit§0 open editor§r\n§0Drag any HUD element.§r\n§c✕§0 cancel§r\n§a✓§0 save§r",
+
+         "§6§l传送 作弊§r\n§0Teleport§r\n§7中 / CN§r\n§0不校验模组权限§r\n§0执行原版 /tp§r\n§0单人：允许作弊§r\n§0已有存档：对局域网开放§r\n§0服务器：需要 OP§r\n§7EN§r\n§0Vanilla /tp is used.§r\n§0Single player: allow cheats.§r\n§0Server: OP required.§r",
+
+         "§6§l祝你游戏愉快§r\n§0Have fun!§r\n§7中 / CN§r\n§0问题反馈邮箱见更新日志首页§r\n§0更新内容见另一本书§r\n§7EN§r\n§0Contact emails are on page 1§r\n§0of the changelog book.§r\n§0Update notes are in that book.§r"
+      };
+   }
+
+   private static String[] changelogPages() {
+      return new String[]{
+         "§6§l更新日志§r\n§0Changelog§r\n§0有问题请联系 Issues:§r\n§bmc_xiaopjingcai@outlook.com§r\n§0或 / or§r\n§bmc_xiaopjingcai@hotmail.com§r\n§e请翻下一页才是更新日志§r\n§eTurn the page for the log§r",
+
+         "§6§l2026-11-13§r\n§0v2.1.0§r\n§7中 / CN§r\n§0支持 Forge NeoForge§r\n§0Fabric Quilt 四种加载器§r\n§0每个加载器单独 jar§r\n§0jar 名带 MC 版本§r\n§0两本书改为双语§r\n§7EN§r\n§0Four loaders supported, one§r\n§0jar each. Jar names include§r\n§0the MC version. Books are§r\n§0bilingual.§r",
+
+         "§6§l2026-11-12§r\n§0v2.1.0§r\n§7中 / CN§r\n§0新增小地图与路点§r\n§0新增 HUD 位置编辑§r\n§0光影默认开启§r\n§0新增性能档位指令§r\n§0删除旧光影性能指令§r\n§0手册扩写并加颜色§r\n§7EN§r\n§0Minimap, waypoints, HUD§r\n§0editor. Glow on by default.§r\n§0Performance presets. Legacy§r\n§0commands removed.§r",
+
+         "§6§l2026-11-10§r\n§0v2.1.0§r\n§7中 / CN§r\n§0首个版本§r\n§0物品光影与 Bloom§r\n§0实体与玩家剔除§r\n§0新生物生成护栏§r\n§0闲置 AI 冻结§r\n§0帧时间诊断§r\n§7EN§r\n§0First release: item glow,§r\n§0culling, spawn guard, idle§r\n§0AI freeze, frame time stats.§r"
       };
    }
 }
