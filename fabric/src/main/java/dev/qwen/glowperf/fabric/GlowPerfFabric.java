@@ -47,7 +47,7 @@ public final class GlowPerfFabric implements ModInitializer {
       ServerTickEvents.END_SERVER_TICK.register(PerfCommon::onServerTickEnd);
       ServerEntityEvents.ENTITY_LOAD.register((entity, level) -> PerfCommon.onEntityLoad(entity));
       ServerEntityEvents.ENTITY_UNLOAD.register((entity, level) -> PerfCommon.onEntityLeave(entity));
-      ServerWorldEvents.UNLOAD.register((server, level) -> PerfCommon.onLevelUnload());
+      ServerWorldEvents.UNLOAD.register((server, level) -> PerfCommon.onLevelUnload(level));
       ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> MapEvents.onLogin(handler.player));
    }
 }

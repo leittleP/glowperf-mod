@@ -13,7 +13,6 @@ import net.minecraft.world.entity.player.Player;
 
 public final class EntityRules {
    private static final String[] DEFAULT_EXEMPT = new String[]{
-      "minecraft:player",
       "minecraft:armor_stand",
       "minecraft:item",
       "minecraft:experience_orb",

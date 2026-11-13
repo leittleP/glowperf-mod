@@ -132,7 +132,7 @@ public final class GpCommand {
                   if (var12 < 64) {
                      SLOT[var10] = var12 + 1;
                      IDS[var12] = System.identityHashCode(var6);
-                     PACK[var12] = 0L;
+                     PACK[var12] = (long) System.identityHashCode(var6) & 0xFFFFFFFFL;
                      var8 = var12++;
                   }
                   break;

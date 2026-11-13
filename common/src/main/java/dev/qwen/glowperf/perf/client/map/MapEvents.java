@@ -28,12 +28,19 @@ public final class MapEvents {
          if (GIVEN.add(id)) {
             try {
                removeOldBooks(player);
-               player.addItem(createBook(MANUAL_TITLE, manualPages()));
-               player.addItem(createBook(CHANGELOG_TITLE, changelogPages()));
-               player.addItem(createBook(DEVELOPER_TITLE, developerPages()));
+               giveBook(player, createBook(MANUAL_TITLE, manualPages()));
+               giveBook(player, createBook(CHANGELOG_TITLE, changelogPages()));
+               giveBook(player, createBook(DEVELOPER_TITLE, developerPages()));
             } catch (Throwable ignored) {
             }
          }
+      }
+   }
+
+   /** 背包满时掉落到脚下，避免三本书被静默丢弃。 */
+   private static void giveBook(Player player, ItemStack book) {
+      if (!player.addItem(book)) {
+         player.drop(book, false);
       }
    }
 

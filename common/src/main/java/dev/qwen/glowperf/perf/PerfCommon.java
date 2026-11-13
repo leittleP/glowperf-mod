@@ -36,7 +36,7 @@ public final class PerfCommon {
          MemWatch.tickWindow();
       }
 
-      if (PerfState.idleNoAi && PerfState.enabled && ++sweepTick >= 40) {
+      if (++sweepTick >= 40) {
          sweepTick = 0;
          sweepIdleAi(server);
       }
@@ -76,9 +76,37 @@ public final class PerfCommon {
       }
    }
 
-   public static void onLevelUnload() {
+   public static void onLevelUnload(ServerLevel level) {
+      if (level != null) {
+         unfreezeLevel(level);
+      }
+
       mobCount = 0;
       EntityRules.resetAllFrozen();
+   }
+
+   private static void unfreezeLevel(ServerLevel level) {
+      if (EntityRules.frozenCount() == 0) {
+         return;
+      }
+
+      for (Entity entity : level.getEntities().getAll()) {
+         if (entity instanceof Mob mob && EntityRules.isFrozen(mob.getId())) {
+            mob.setNoAi(false);
+            EntityRules.unregisterFreeze(mob.getId());
+         }
+      }
+   }
+
+   private static void restoreFrozen(MinecraftServer server) {
+      int frozen = EntityRules.frozenCount();
+      if (frozen != 0) {
+         for (ServerLevel level : server.getAllLevels()) {
+            unfreezeLevel(level);
+         }
+
+         EntityRules.resetAllFrozen();
+      }
    }
 
    public static int trackedMobs() {
@@ -86,23 +114,45 @@ public final class PerfCommon {
    }
 
    private static void sweepIdleAi(MinecraftServer server) {
-      if (server != null) {
-         int dist = PerfState.distance(PerfState.idleNoAiDistance);
-         double dist2 = (double)dist * (double)dist;
+      if (server == null) {
+         return;
+      }
 
-         for (ServerLevel level : server.getAllLevels()) {
-            List<? extends Player> players = level.players();
-            int np = players.size();
-            if (np != 0) {
-               AABB box = new AABB(
-                  players.get(0).getX() - (double)dist * 2.5,
-                  players.get(0).getY() - 32.0,
-                  players.get(0).getZ() - (double)dist * 2.5,
-                  players.get(0).getX() + (double)dist * 2.5,
-                  players.get(0).getY() + 32.0,
-                  players.get(0).getZ() + (double)dist * 2.5
-               );
-               List<Mob> mobs = level.getEntities(EntityTypeTest.forClass(Mob.class), box, mob -> !mob.isRemoved());
+      if (!PerfState.enabled || !PerfState.idleNoAi) {
+         restoreFrozen(server);
+         return;
+      }
+
+      int dist = PerfState.distance(PerfState.idleNoAiDistance);
+      double dist2 = (double)dist * (double)dist;
+      double margin = (double)dist * 2.5;
+
+      for (ServerLevel level : server.getAllLevels()) {
+         List<? extends Player> players = level.players();
+         int np = players.size();
+         if (np != 0) {
+            double minX = Double.MAX_VALUE;
+            double minY = Double.MAX_VALUE;
+            double minZ = Double.MAX_VALUE;
+            double maxX = -Double.MAX_VALUE;
+            double maxY = -Double.MAX_VALUE;
+            double maxZ = -Double.MAX_VALUE;
+
+            for (int p = 0; p < np; p++) {
+               Player player = players.get(p);
+               minX = Math.min(minX, player.getX());
+               minY = Math.min(minY, player.getY());
+               minZ = Math.min(minZ, player.getZ());
+               maxX = Math.max(maxX, player.getX());
+               maxY = Math.max(maxY, player.getY());
+               maxZ = Math.max(maxZ, player.getZ());
+            }
+
+            AABB box = new AABB(
+               minX - margin, minY - 32.0, minZ - margin,
+               maxX + margin, maxY + 32.0, maxZ + margin
+            );
+            List<Mob> mobs = level.getEntities(EntityTypeTest.forClass(Mob.class), box, mob -> !mob.isRemoved());
 
                for (int i = 0; i < mobs.size(); i++) {
                   Mob mob = mobs.get(i);
@@ -128,6 +178,5 @@ public final class PerfCommon {
                }
             }
          }
-      }
    }
 }

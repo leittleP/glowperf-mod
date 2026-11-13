@@ -2,6 +2,7 @@ package dev.qwen.glowperf.forge;
 
 import dev.qwen.glowperf.perf.PerfCommon;
 import dev.qwen.glowperf.perf.client.map.MapEvents;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.event.TickEvent.Phase;
 import net.minecraftforge.event.TickEvent.ServerTickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
@@ -27,6 +28,10 @@ public final class ForgeCommonEvents {
 
    @SubscribeEvent
    public static void onEntityJoin(EntityJoinLevelEvent event) {
+      if (event.getLevel().isClientSide()) {
+         return;
+      }
+
       if (PerfCommon.onEntityJoin(event.getEntity(), event.loadedFromDisk())) {
          event.setCanceled(true);
       }
@@ -39,7 +44,9 @@ public final class ForgeCommonEvents {
 
    @SubscribeEvent
    public static void onLevelUnload(LevelEvent.Unload event) {
-      PerfCommon.onLevelUnload();
+      if (event.getLevel() instanceof ServerLevel level) {
+         PerfCommon.onLevelUnload(level);
+      }
    }
 
    @SubscribeEvent
