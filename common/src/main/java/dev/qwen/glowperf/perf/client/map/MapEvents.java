@@ -25,7 +25,7 @@ public final class MapEvents {
    public static void onLogin(Player player) {
       if (player != null) {
          UUID id = player.getUUID();
-         if (GIVEN.add(id)) {
+         if (GIVEN.add(id) || !hasAllBooks(player)) {
             try {
                removeOldBooks(player);
                giveBook(player, createBook(MANUAL_TITLE, manualPages()));
@@ -35,6 +35,26 @@ public final class MapEvents {
             }
          }
       }
+   }
+
+   /** 三本书缺任意一本就视为丢失，下次登录补发。 */
+   private static boolean hasAllBooks(Player player) {
+      boolean manual = false;
+      boolean changelog = false;
+      boolean developer = false;
+      Inventory inv = player.getInventory();
+
+      for (int i = 0; i < inv.getContainerSize(); i++) {
+         ItemStack stack = inv.getItem(i);
+         if (isOurBook(stack)) {
+            String title = stack.getTag().getString("title");
+            manual |= MANUAL_TITLE.equals(title);
+            changelog |= CHANGELOG_TITLE.equals(title);
+            developer |= DEVELOPER_TITLE.equals(title);
+         }
+      }
+
+      return manual && changelog && developer;
    }
 
    /** 背包满时掉落到脚下，避免三本书被静默丢弃。 */
