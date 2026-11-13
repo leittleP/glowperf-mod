@@ -1,0 +1,60 @@
+name: Build
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-read-only: false
+
+      - name: Build all loaders
+        run: ./gradlew build -Ploaders=forge,neoforge,fabric,quilt --no-daemon --stacktrace
+
+      - name: Collect jars
+        run: |
+          mkdir -p dist
+          cp forge/build/libs/glowperf-*-forge.jar dist/
+          cp neoforge/build/libs/glowperf-*-neoforge.jar dist/
+          cp fabric/build/libs/glowperf-*-fabric.jar dist/
+          cp quilt/build/libs/glowperf-*-quilt.jar dist/
+          ls -l dist
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: glowperf-jars
+          path: dist/*.jar
+          if-no-files-found: error
+
+      - name: Publish release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.jar
+          fail_on_unmatched_files: true
+          generate_release_notes: true
