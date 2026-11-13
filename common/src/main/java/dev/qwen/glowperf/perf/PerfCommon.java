@@ -9,9 +9,14 @@ import dev.qwen.glowperf.perf.core.PerfState;
 import java.util.List;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.phys.AABB;
 
@@ -52,9 +57,40 @@ public final class PerfCommon {
    /** /clear、掉落、容器转移等把书弄丢后自动补回。 */
    private static void ensureBooks(MinecraftServer server) {
       for (ServerLevel level : server.getAllLevels()) {
-         for (Player player : level.players()) {
+         for (ServerPlayer player : level.players()) {
+            lockBooks(player);
             MapEvents.ensureBooks(player);
          }
+      }
+   }
+
+   /** 书只能留在玩家背包里，塞进箱子等容器会被退回。 */
+   private static void lockBooks(ServerPlayer player) {
+      AbstractContainerMenu menu = player.containerMenu;
+      if (menu == null) {
+         return;
+      }
+
+      Inventory own = player.getInventory();
+      boolean moved = false;
+
+      for (Slot slot : menu.slots) {
+         if (slot.container == own) {
+            continue;
+         }
+
+         ItemStack stack = slot.getItem();
+         if (!MapEvents.isProtectedBook(stack) || !slot.mayPickup(player)) {
+            continue;
+         }
+
+         slot.set(ItemStack.EMPTY);
+         MapEvents.returnBook(player, stack);
+         moved = true;
+      }
+
+      if (moved) {
+         menu.broadcastChanges();
       }
    }
 
