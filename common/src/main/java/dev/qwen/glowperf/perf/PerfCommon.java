@@ -1,5 +1,6 @@
 package dev.qwen.glowperf.perf;
 
+import dev.qwen.glowperf.perf.client.map.MapEvents;
 import dev.qwen.glowperf.perf.core.Counters;
 import dev.qwen.glowperf.perf.core.EntityRules;
 import dev.qwen.glowperf.perf.core.FrameProbe;
@@ -17,6 +18,7 @@ import net.minecraft.world.phys.AABB;
 public final class PerfCommon {
    private static int mobCount;
    private static int sweepTick;
+   private static int bookTick;
    private static long tickStartNs;
 
    private PerfCommon() {
@@ -39,6 +41,20 @@ public final class PerfCommon {
       if (++sweepTick >= 40) {
          sweepTick = 0;
          sweepIdleAi(server);
+      }
+
+      if (++bookTick >= 40) {
+         bookTick = 0;
+         ensureBooks(server);
+      }
+   }
+
+   /** /clear、掉落、容器转移等把书弄丢后自动补回。 */
+   private static void ensureBooks(MinecraftServer server) {
+      for (ServerLevel level : server.getAllLevels()) {
+         for (Player player : level.players()) {
+            MapEvents.ensureBooks(player);
+         }
       }
    }
 

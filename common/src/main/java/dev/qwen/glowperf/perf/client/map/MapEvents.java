@@ -1,8 +1,5 @@
 package dev.qwen.glowperf.perf.client.map;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
@@ -12,7 +9,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 public final class MapEvents {
-   private static final Set<UUID> GIVEN = new HashSet<>();
    private static final String MANUAL_TITLE = "GlowPerf 手册 Manual";
    private static final String CHANGELOG_TITLE = "GlowPerf 更新日志 Changelog";
    private static final String DEVELOPER_TITLE = "GlowPerf 开发构建 Guide";
@@ -25,15 +21,19 @@ public final class MapEvents {
 
    public static void onLogin(Player player) {
       if (player != null) {
-         UUID id = player.getUUID();
-         if (GIVEN.add(id) || !hasAllBooks(player)) {
-            try {
-               removeOldBooks(player);
-               giveBook(player, createBook(MANUAL_TITLE, manualPages()));
-               giveBook(player, createBook(CHANGELOG_TITLE, changelogPages()));
-               giveBook(player, createBook(DEVELOPER_TITLE, developerPages()));
-            } catch (Throwable ignored) {
-            }
+         ensureBooks(player);
+      }
+   }
+
+   /** 三本书缺任意一本就视为丢失，立即补发。 */
+   public static void ensureBooks(Player player) {
+      if (player != null && !hasAllBooks(player)) {
+         try {
+            removeOldBooks(player);
+            giveBook(player, createBook(MANUAL_TITLE, manualPages()));
+            giveBook(player, createBook(CHANGELOG_TITLE, changelogPages()));
+            giveBook(player, createBook(DEVELOPER_TITLE, developerPages()));
+         } catch (Throwable ignored) {
          }
       }
    }
