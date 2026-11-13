@@ -192,33 +192,33 @@ public final class MapEvents {
 
    private static String[] manualPages() {
       return new String[]{
-         "§6§l光影性能核心§r\n§0GlowPerf 手册 Manual§r\n§0v2.1.0 · MC 1.20.1§r\n§7中 / CN§r\n§0全部功能走指令，无按键§r\n§b/perf help§r\n§b/gp help§r\n§7EN§r\n§0Commands only, no keys.§r\n§b/perf help§r\n§b/gp help§r",
+         "§4§l光影性能核心§r\n§0GlowPerf 手册 Manual§r\n§0v2.1.0 · MC 1.20.1§r\n§2中 / CN§r\n§0全部功能走指令，无按键§r\n§1§l/perf help§r\n§1§l/gp help§r\n§3EN§r\n§0Commands only, no keys.§r\n§1§l/perf help§r\n§1§l/gp help§r",
 
-         "§6§l小地图 Minimap§r\n§7中 / CN§r\n§b/open the map§0 打开§r\n§b/close the map§0 关闭§r\n§b/minimap on|off§0 常驻§r\n§0Esc 或右上 x 关闭§r\n§0记住缩放与平移§r\n§7EN§r\n§b/open the map§0 open§r\n§b/close the map§0 close§r\n§b/minimap on|off§0 corner§r\n§0Esc or x closes it.§r",
+         "§4§l小地图 Minimap§r\n§2中 / CN§r\n§1§l/open the map§0 打开§r\n§1§l/close the map§0 关闭§r\n§1§l/minimap on|off§0 常驻§r\n§0Esc 或右上 x 关闭§r\n§0记住缩放与平移§r\n§3EN§r\n§1§l/open the map§0 open§r\n§1§l/close the map§0 close§r\n§1§l/minimap on|off§0 corner§r\n§0Esc or x closes it.§r",
 
-         "§6§l地图按钮 1 Map§r\n§7中 / CN§r\n§b坐标§0 X Y Z 传送§r\n§b玩家§0 在线玩家传送§r\n§b路点§0 列表 / 删除§r\n§b洞穴§0 锁定洞穴模式§r\n§b立体§0 立体着色§r\n§7EN§r\n§bXYZ§0 teleport by coords§r\n§bPlayer§0 player teleport§r\n§bWaypoint§0 list / delete§r\n§bCave§0 lock cave mode§r\n§b3D§0 stereo shading§r",
+         "§4§l地图按钮 1 Map§r\n§2中 / CN§r\n§1§l坐标§0 X Y Z 传送§r\n§1§l玩家§0 在线玩家传送§r\n§1§l路点§0 列表 / 删除§r\n§1§l洞穴§0 锁定洞穴模式§r\n§1§l立体§0 立体着色§r\n§3EN§r\n§1§lXYZ§0 teleport by coords§r\n§1§lPlayer§0 player teleport§r\n§1§lWaypoint§0 list / delete§r\n§1§lCave§0 lock cave mode§r\n§1§l3D§0 stereo shading§r",
 
-         "§6§l地图按钮 2 Map§r\n§7中 / CN§r\n§b标记§0 实体标记开关§r\n§b缩小§0 缩小地图§r\n§b放大§0 放大地图§r\n§b回中§0 回到玩家§r\n§0右上 x 关闭地图§r\n§7EN§r\n§bMarkers§0 toggle markers§r\n§bZoom-§0 zoom out§r\n§bZoom+§0 zoom in§r\n§bCenter§0 back to player§r\n§0x at top right closes§r",
+         "§4§l地图按钮 2 Map§r\n§2中 / CN§r\n§1§l标记§0 实体标记开关§r\n§1§l缩小§0 缩小地图§r\n§1§l放大§0 放大地图§r\n§1§l回中§0 回到玩家§r\n§0右上 x 关闭地图§r\n§3EN§r\n§1§lMarkers§0 toggle markers§r\n§1§lZoom-§0 zoom out§r\n§1§lZoom+§0 zoom in§r\n§1§lCenter§0 back to player§r\n§0x at top right closes§r",
 
-         "§6§l地图操作 Controls§r\n§7中 / CN§r\n§b左键§0 点击传送§r\n§b右键§0 添加路点§r\n§b拖动§0 平移地图§r\n§b滚轮§0 缩放 0.5~16§r\n§0悬停看坐标 距离 区块 群系§r\n§7EN§r\n§bLeft click§0 teleport§r\n§bRight click§0 waypoint§r\n§bDrag§0 pan the map§r\n§bWheel§0 zoom 0.5-16§r",
+         "§4§l地图操作 Controls§r\n§2中 / CN§r\n§1§l左键§0 点击传送§r\n§1§l右键§0 添加路点§r\n§1§l拖动§0 平移地图§r\n§1§l滚轮§0 缩放 0.5~16§r\n§0悬停看坐标 距离 区块 群系§r\n§3EN§r\n§1§lLeft click§0 teleport§r\n§1§lRight click§0 waypoint§r\n§1§lDrag§0 pan the map§r\n§1§lWheel§0 zoom 0.5-16§r",
 
-         "§6§l标记与洞穴§r\n§0Markers & cave§r\n§7中 / CN§r\n§6橙§0 掉落物§r\n§5紫§0 刷怪笼§r\n§c红§0 敌对§r\n§a绿§0 友好§r\n§0Y<0 自动洞穴，Y≥0 恢复§r\n§7EN§r\n§6Orange§0 items§r\n§5Purple§0 spawner§r\n§cRed§0 hostile§r\n§aGreen§0 passive§r\n§0Y<0 cave mode, auto restore§r",
+         "§4§l标记与洞穴§r\n§0Markers & cave§r\n§2中 / CN§r\n§6橙§0 掉落物§r\n§5紫§0 刷怪笼§r\n§c红§0 敌对§r\n§a绿§0 友好§r\n§0Y<0 自动洞穴，Y≥0 恢复§r\n§3EN§r\n§6Orange§0 items§r\n§5Purple§0 spawner§r\n§cRed§0 hostile§r\n§aGreen§0 passive§r\n§0Y<0 cave mode, auto restore§r",
 
-         "§6§l区块与高度§r\n§0Chunks & height§r\n§7中 / CN§r\n§0地图按 16×16 区块铺开§r\n§0细线为区块边界§r\n§0放大 6 倍显示区块坐标§r\n§0顶部显示维度 坐标 Y 群系§r\n§7EN§r\n§0Map is drawn in 16x16 chunks.§r\n§0Thin lines are borders.§r\n§0Zoom 6x+ shows chunk IDs.§r\n§0Header: dimension, pos, Y,§r\n§0biome.§r",
+         "§4§l区块与高度§r\n§0Chunks & height§r\n§2中 / CN§r\n§0地图按 16×16 区块铺开§r\n§0细线为区块边界§r\n§0放大 6 倍显示区块坐标§r\n§0顶部显示维度 坐标 Y 群系§r\n§3EN§r\n§0Map is drawn in 16x16 chunks.§r\n§0Thin lines are borders.§r\n§0Zoom 6x+ shows chunk IDs.§r\n§0Header: dimension, pos, Y,§r\n§0biome.§r",
 
-         "§6§l路点 Waypoints§r\n§7中 / CN§r\n§b/wp add 名字§r\n§b/wp list§r\n§b/wp tp 名字§r\n§b/wp del 名字§r\n§0最多 64 个，自动保存§r\n§7EN§r\n§b/wp add name§0 create§r\n§b/wp list§0 list§r\n§b/wp tp name§0 teleport§r\n§b/wp del name§0 delete§r\n§0Up to 64, auto saved.§r",
+         "§4§l路点 Waypoints§r\n§2中 / CN§r\n§1§l/wp add 名字§r\n§1§l/wp list§r\n§1§l/wp tp 名字§r\n§1§l/wp del 名字§r\n§0最多 64 个，自动保存§r\n§3EN§r\n§1§l/wp add name§0 create§r\n§1§l/wp list§0 list§r\n§1§l/wp tp name§0 teleport§r\n§1§l/wp del name§0 delete§r\n§0Up to 64, auto saved.§r",
 
-         "§6§l光影 Glow§r\n§7中 / CN§r\n§0默认开启§r\n§b/light and shadow§r\n§0 open 开 · off 关§r\n§0 auto 自动§r\n§0 fps on|off 帧率§r\n§0 settings 设置§r\n§7EN§r\n§0On by default.§r\n§b/light and shadow§r\n§0 open · off · auto§r\n§0 fps on|off · settings§r",
+         "§4§l光影 Glow§r\n§2中 / CN§r\n§0默认开启§r\n§1§l/light and shadow§r\n§0 open 开 · off 关§r\n§0 auto 自动§r\n§0 fps on|off 帧率§r\n§0 settings 设置§r\n§3EN§r\n§0On by default.§r\n§1§l/light and shadow§r\n§0 open · off · auto§r\n§0 fps on|off · settings§r",
 
-         "§6§l性能档位 Presets§r\n§7中 / CN§r\n§b/performance optimization§r\n§0 off 关闭§r\n§0 mild 轻度§r\n§0 moderate 中度§r\n§0 severe 重度§r\n§0 t matter 无所谓§r\n§0 auto 自动§r\n§7EN§r\n§0Strength: t matter > severe§r\n§0> moderate > mild > off.§r\n§0auto follows frame time.§r",
+         "§4§l性能档位 Presets§r\n§2中 / CN§r\n§1§l/performance optimization§r\n§0 off 关闭§r\n§0 mild 轻度§r\n§0 moderate 中度§r\n§0 severe 重度§r\n§0 t matter 无所谓§r\n§0 auto 自动§r\n§3EN§r\n§0Strength: t matter > severe§r\n§0> moderate > mild > off.§r\n§0auto follows frame time.§r",
 
-         "§6§l面板 诊断 HUD§r\n§7中 / CN§r\n§b/perf help§0 指令§r\n§b/perf settings§0 面板§r\n§b/perf on|off§0 总开关§r\n§b/perf save§0 保存§r\n§b/gp scan§0 体检§r\n§b/gp top§0 来源§r\n§b/gp slow§0 长帧§r\n§7EN§r\n§bhelp / settings / save§r\n§bscan / top / slow§0 diagnostics§r",
+         "§4§l面板 诊断 HUD§r\n§2中 / CN§r\n§1§l/perf help§0 指令§r\n§1§l/perf settings§0 面板§r\n§1§l/perf on|off§0 总开关§r\n§1§l/perf save§0 保存§r\n§1§l/gp scan§0 体检§r\n§1§l/gp top§0 来源§r\n§1§l/gp slow§0 长帧§r\n§3EN§r\n§1§lhelp / settings / save§r\n§1§lscan / top / slow§0 diagnostics§r",
 
-         "§6§l面板位置编辑§r\n§0HUD editor§r\n§7中 / CN§r\n§b/gp posedit§0 进入编辑§r\n§0拖动面板到目标位置§r\n§c✕§0 取消还原§r\n§a✓§0 保存位置§r\n§7EN§r\n§b/gp posedit§0 open editor§r\n§0Drag any HUD element.§r\n§c✕§0 cancel§r\n§a✓§0 save§r",
+         "§4§l面板位置编辑§r\n§0HUD editor§r\n§2中 / CN§r\n§1§l/gp posedit§0 进入编辑§r\n§0拖动面板到目标位置§r\n§c✕§0 取消还原§r\n§a✓§0 保存位置§r\n§3EN§r\n§1§l/gp posedit§0 open editor§r\n§0Drag any HUD element.§r\n§c✕§0 cancel§r\n§a✓§0 save§r",
 
-         "§6§l传送 作弊§r\n§0Teleport§r\n§7中 / CN§r\n§0不校验模组权限§r\n§0执行原版 /tp§r\n§0单人：允许作弊§r\n§0已有存档：对局域网开放§r\n§0服务器：需要 OP§r\n§7EN§r\n§0Vanilla /tp is used.§r\n§0Single player: allow cheats.§r\n§0Server: OP required.§r",
+         "§4§l传送 作弊§r\n§0Teleport§r\n§2中 / CN§r\n§0不校验模组权限§r\n§0执行原版 /tp§r\n§0单人：允许作弊§r\n§0已有存档：对局域网开放§r\n§0服务器：需要 OP§r\n§3EN§r\n§0Vanilla /tp is used.§r\n§0Single player: allow cheats.§r\n§0Server: OP required.§r",
 
-         "§6§l祝你游戏愉快§r\n§0Have fun!§r\n§7中 / CN§r\n§0问题反馈邮箱见更新日志首页§r\n§0更新内容见另一本书§r\n§7EN§r\n§0Contact emails are on page 1§r\n§0of the changelog book.§r\n§0Update notes are in that book.§r"
+         "§4§l祝你游戏愉快§r\n§0Have fun!§r\n§2中 / CN§r\n§0问题反馈邮箱见更新日志首页§r\n§0更新内容见另一本书§r\n§3EN§r\n§0Contact emails are on page 1§r\n§0of the changelog book.§r\n§0Update notes are in that book.§r"
       };
    }
 
@@ -252,13 +252,13 @@ public final class MapEvents {
 
    private static String[] developerPages() {
       return new String[]{
-         "§6§l开发 构建§r\n§0Dev & Build§r\n§0源码仓库 Repo§r\n§bgithub.com/leittleP/§r\n§bglowperf-mod§r\n§7中 / CN§r\n§0需要 JDK 17§r\n§0Gradle Wrapper 8.10.2§r\n§7EN§r\n§0JDK 17 required.§r\n§0Gradle wrapper 8.10.2.§r",
+         "§4§l开发 构建§r\n§0Dev & Build§r\n§0源码仓库 Repo§r\n§1§lgithub.com/leittleP/§r\n§1§lglowperf-mod§r\n§2中 / CN§r\n§0需要 JDK 17§r\n§0Gradle Wrapper 8.10.2§r\n§3EN§r\n§0JDK 17 required.§r\n§0Gradle wrapper 8.10.2.§r",
 
-         "§6§l构建命令§r\n§0Build commands§r\n§7中 / CN§r\n§b./gradlew :forge:build§r\n§b -Ploaders=forge§r\n§0依次构建四种加载器§r\n§0每次只构建一个§r\n§7EN§r\n§0Build one loader per run:§r\n§b-Ploaders=forge§r\n§0neoforge, fabric, quilt§r\n§0Forge and NeoForge must not§r\n§0share one invocation.§r",
+         "§4§l构建命令§r\n§0Build commands§r\n§2中 / CN§r\n§1§l./gradlew :forge:build§r\n§1§l -Ploaders=forge§r\n§0依次构建四种加载器§r\n§0每次只构建一个§r\n§3EN§r\n§0Build one loader per run:§r\n§1§l-Ploaders=forge§r\n§0neoforge, fabric, quilt§r\n§0Forge and NeoForge must not§r\n§0share one invocation.§r",
 
-         "§6§lCI 自动构建§r\n§0GitHub Actions§r\n§7中 / CN§r\n§0推送 v* 标签§r\n§0自动构建四个 jar§r\n§0并发布到 Release§r\n§0也可 workflow_dispatch§r\n§7EN§r\n§0Push a v* tag to build all§r\n§0four jars and publish the§r\n§0release. Manual runs use§r\n§0workflow_dispatch.§r",
+         "§4§lCI 自动构建§r\n§0GitHub Actions§r\n§2中 / CN§r\n§0推送 v* 标签§r\n§0自动构建四个 jar§r\n§0并发布到 Release§r\n§0也可 workflow_dispatch§r\n§3EN§r\n§0Push a v* tag to build all§r\n§0four jars and publish the§r\n§0release. Manual runs use§r\n§0workflow_dispatch.§r",
 
-         "§6§l模块结构§r\n§0Modules§r\n§7中 / CN§r\n§0common 公共逻辑§r\n§0forge neoforge FML§r\n§0fabric quilt Loom§r\n§0产物名带 mc1.20.1§r\n§7EN§r\n§0common: shared logic§r\n§0forge & neoforge: FML§r\n§0fabric & quilt: Loom§r\n§0Jar names include the MC§r\n§0version.§r"
+         "§4§l模块结构§r\n§0Modules§r\n§2中 / CN§r\n§0common 公共逻辑§r\n§0forge neoforge FML§r\n§0fabric quilt Loom§r\n§0产物名带 mc1.20.1§r\n§3EN§r\n§0common: shared logic§r\n§0forge & neoforge: FML§r\n§0fabric & quilt: Loom§r\n§0Jar names include the MC§r\n§0version.§r"
       };
    }
 }
