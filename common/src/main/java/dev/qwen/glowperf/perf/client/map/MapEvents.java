@@ -226,7 +226,9 @@ public final class MapEvents {
       return new String[]{
          "§6§l更新日志§r\n§0Changelog§r\n§0有问题请联系 Issues:§r\n§bmc_xiaopjingcai@outlook.com§r\n§0或 / or§r\n§bmc_xiaopjingcai@hotmail.com§r\n§e请翻下一页才是更新日志§r\n§eTurn the page for the log§r",
 
-         "§6§l2026-11-13§r\n§0v2.1.0§r\n§7中 / CN§r\n§0支持 Forge NeoForge§r\n§0Fabric Quilt 四种加载器§r\n§0每个加载器单独 jar§r\n§0jar 名带 MC 版本§r\n§0两本书改为双语§r\n§7EN§r\n§0Four loaders supported, one§r\n§0jar each. Jar names include§r\n§0the MC version. Books are§r\n§0bilingual.§r",
+         "§6§l2026-11-13§r\n§0v2.1.0§r\n§7中 / CN§r\n§0支持 Forge NeoForge§r\n§0Fabric Quilt 四种加载器§r\n§0每个加载器单独 jar§r\n§0jar 名带 MC 版本§r\n§0手册与日志改为双语§r\n§7EN§r\n§0Four loaders supported, one§r\n§0jar each. Jar names include§r\n§0the MC version. Books are§r\n§0bilingual.§r",
+
+         "§6§l2026-11-13 修复§r\n§0Fixes§r\n§7中 / CN§r\n§0三本书不可丢弃§r\n§0不可合成 不可清空§r\n§0放入容器会退回背包§r\n§0/clear 后 2 秒内补回§r\n§0修复背包满时刷书§r\n§0修复丢书递归崩溃§r\n§7EN§r\n§0Books cannot be dropped,§r\n§0crafted or cleared.§r\n§0Container moves are reverted.§r\n§0Missing books return in 2s.§r\n§0Fixed infinite book drops.§r",
 
          "§6§l2026-11-12§r\n§0v2.1.0§r\n§7中 / CN§r\n§0新增小地图与路点§r\n§0新增 HUD 位置编辑§r\n§0光影默认开启§r\n§0新增性能档位指令§r\n§0删除旧光影性能指令§r\n§0手册扩写并加颜色§r\n§7EN§r\n§0Minimap, waypoints, HUD§r\n§0editor. Glow on by default.§r\n§0Performance presets. Legacy§r\n§0commands removed.§r",
 
