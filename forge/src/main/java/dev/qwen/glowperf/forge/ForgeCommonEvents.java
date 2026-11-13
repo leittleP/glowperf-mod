@@ -1,0 +1,49 @@
+package dev.qwen.glowperf.forge;
+
+import dev.qwen.glowperf.perf.PerfCommon;
+import dev.qwen.glowperf.perf.client.map.MapEvents;
+import net.minecraftforge.event.TickEvent.Phase;
+import net.minecraftforge.event.TickEvent.ServerTickEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.EntityLeaveLevelEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
+import net.minecraftforge.event.level.LevelEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+
+@Mod.EventBusSubscriber(modid = "glowperf")
+public final class ForgeCommonEvents {
+   private ForgeCommonEvents() {
+   }
+
+   @SubscribeEvent
+   public static void onServerTick(ServerTickEvent event) {
+      if (event.phase == Phase.START) {
+         PerfCommon.onServerTickStart();
+      } else {
+         PerfCommon.onServerTickEnd(event.getServer());
+      }
+   }
+
+   @SubscribeEvent
+   public static void onEntityJoin(EntityJoinLevelEvent event) {
+      if (PerfCommon.onEntityJoin(event.getEntity(), event.loadedFromDisk())) {
+         event.setCanceled(true);
+      }
+   }
+
+   @SubscribeEvent
+   public static void onEntityLeave(EntityLeaveLevelEvent event) {
+      PerfCommon.onEntityLeave(event.getEntity());
+   }
+
+   @SubscribeEvent
+   public static void onLevelUnload(LevelEvent.Unload event) {
+      PerfCommon.onLevelUnload();
+   }
+
+   @SubscribeEvent
+   public static void onLogin(PlayerLoggedInEvent event) {
+      MapEvents.onLogin(event.getEntity());
+   }
+}

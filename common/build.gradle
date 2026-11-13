@@ -1,0 +1,19 @@
+plugins {
+    id 'fabric-loom' version '1.7.4'
+}
+
+base.archivesName = 'glowperf-common'
+
+dependencies {
+    minecraft "com.mojang:minecraft:${minecraft_version}"
+    mappings loom.officialMojangMappings()
+}
+
+// The common artifact is only a compilation and test aid. Loader modules compile
+// these sources themselves with their own runtime mappings.
+sourceSets {
+    main {
+        java.srcDirs = ['src/main/java']
+        resources.srcDirs = []
+    }
+}

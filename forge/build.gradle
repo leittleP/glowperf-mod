@@ -1,0 +1,26 @@
+plugins {
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+}
+
+base.archivesName = 'glowperf'
+version = "${mod_version}-mc${minecraft_version}-forge"
+
+minecraft {
+    mappings channel: 'official', version: minecraft_version
+    runs {
+        client {
+            workingDirectory project.file('run')
+        }
+    }
+}
+
+sourceSets.main {
+    java.srcDirs = ['src/main/java', '../common/src/main/java']
+    resources.srcDirs = ['src/main/resources', '../common/src/main/resources']
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+}
+
+jar.finalizedBy('reobfJar')

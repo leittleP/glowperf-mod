@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Specification-Title: glowperf
+Specification-Vendor: Qwen Go
+Specification-Version: 1
+Implementation-Title: glowperf
+Implementation-Version: 2.1.0
+Implementation-Vendor: Qwen Go
+Implementation-Timestamp: 2026-10-28T22:30:00+0800
+

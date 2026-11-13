@@ -1,0 +1,33 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+
+[[mods]]
+modId="glowperf"
+version="2.1.0"
+displayName="光影性能核心 GlowPerf"
+authors="Qwen Go"
+displayTest="IGNORE_ALL_VERSION"
+description='''物品光影 + 性能治理合并版（Minecraft 1.20.1 / Forge 47.2.20）。
+
+光影：手持与装备物品光晕、掉落物高亮描边、物品动态受光高光、背包与箱子图标发光。
+性能：远处生物与玩家渲染剔除、生物生成护栏、远处闲置 AI 冻结、堆内存看护、帧时间与 tick/TPS 诊断与卡顿快照。
+坐标：X/Y/Z、区块、朝向、维度、群系、主世界/下界换算与移动速度。
+小地图：/open the map、/minimap、/wp，支持拖拽、缩放、传送、实体标记、洞穴与立体模式。
+
+指令：/light and shadow、/performance optimization、/perf、/gp、/open the map、/close the map、/minimap、/wp。
+Forge 适配使用公开事件，不使用 Mixin 或 Access Transformer。'''
+
+[[dependencies.glowperf]]
+modId="forge"
+mandatory=true
+versionRange="[47,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.glowperf]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1]"
+ordering="NONE"
+side="BOTH"

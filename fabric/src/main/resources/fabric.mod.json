@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "glowperf",
+  "version": "2.1.0",
+  "name": "光影性能核心 GlowPerf",
+  "description": "物品光影、渲染剔除、生成护栏、性能诊断、详细坐标、小地图与路点。",
+  "authors": [
+    "Qwen Go"
+  ],
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "dev.qwen.glowperf.fabric.GlowPerfFabric"
+    ],
+    "client": [
+      "dev.qwen.glowperf.fabric.GlowPerfFabricClient"
+    ]
+  },
+  "mixins": [
+    "glowperf.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.5",
+    "fabric-api": ">=0.92.2",
+    "minecraft": "1.20.1",
+    "java": ">=17"
+  }
+}

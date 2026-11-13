@@ -1,0 +1,36 @@
+allprojects {
+    group = 'dev.qwen.glowperf'
+    version = '2.1.0'
+
+    repositories {
+        mavenCentral()
+        maven { url = 'https://libraries.minecraft.net/' }
+        if (project.name in ['common', 'fabric', 'quilt']) {
+            maven { url = 'https://maven.fabricmc.net/' }
+        }
+        if (project.name == 'quilt') {
+            maven { url = 'https://maven.quiltmc.org/repository/release' }
+        }
+        if (project.name in ['forge', 'neoforge']) {
+            maven { url = 'https://maven.minecraftforge.net/' }
+            maven { url = 'https://mirror.sjtu.edu.cn/bmclapi/' }
+        }
+        if (project.name == 'neoforge') {
+            maven { url = 'https://neoforged.forgecdn.net/releases' }
+        }
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    java {
+        toolchain.languageVersion = JavaLanguageVersion.of(17)
+        withSourcesJar()
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = 'UTF-8'
+        options.compilerArgs += ['-Xlint:-deprecation', '-Xlint:-removal']
+    }
+}

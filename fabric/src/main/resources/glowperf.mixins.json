@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.qwen.glowperf.fabric.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "glowperf-refmap.json",
+  "mixins": [
+    "server.ServerLevelMixin"
+  ],
+  "client": [
+    "client.GuiGraphicsMixin",
+    "client.LivingEntityRendererMixin",
+    "client.PlayerRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

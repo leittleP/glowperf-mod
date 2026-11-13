@@ -1,0 +1,15 @@
+{
+  "key.categories.itemglow": "Item Glow VR Glow",
+  "key.itemglow.toggle": "Toggle item glow",
+  "key.itemglow.fps": "Toggle FPS meter",
+  "key.itemglow.settings": "Open glow console",
+  "screen.itemglow.settings": "Item Glow · Console",
+  "key.categories.perfcore": "Perf Core",
+  "key.perfcore.toggle": "Toggle performance modules",
+  "key.perfcore.panel": "Toggle perf panel",
+  "key.perfcore.compact": "Toggle compact panel",
+  "key.perfcore.settings": "Open perf console",
+  "key.perfcore.coords": "Toggle coordinate panel",
+  "key.perfcore.minimap": "Toggle minimap HUD",
+  "screen.perfcore.settings": "Perf Core · Console"
+}

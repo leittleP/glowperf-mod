@@ -1,0 +1,15 @@
+{
+  "key.categories.itemglow": "物品光影 VR Glow",
+  "key.itemglow.toggle": "开关物品光影",
+  "key.itemglow.fps": "开关帧率面板",
+  "key.itemglow.settings": "打开光影控制台",
+  "screen.itemglow.settings": "物品光影 · 控制台",
+  "key.categories.perfcore": "性能核心 Perf Core",
+  "key.perfcore.toggle": "性能优化总开关",
+  "key.perfcore.panel": "性能面板开关",
+  "key.perfcore.compact": "面板精简切换",
+  "key.perfcore.settings": "打开性能控制台",
+  "key.perfcore.coords": "坐标面板开关",
+  "key.perfcore.minimap": "常驻小地图开关",
+  "screen.perfcore.settings": "性能核心 · 控制台"
+}

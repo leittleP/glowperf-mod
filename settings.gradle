@@ -1,0 +1,18 @@
+pluginManagement {
+    repositories {
+        maven { url = 'https://maven.fabricmc.net/' }
+        maven { url = 'https://maven.quiltmc.org/repository/release' }
+        mavenCentral()
+        maven { url = 'https://maven.minecraftforge.net/' }
+        maven { url = 'https://neoforged.forgecdn.net/releases' }
+        maven { url = 'https://mirror.sjtu.edu.cn/bmclapi/' }
+        gradlePluginPortal()
+    }
+}
+
+rootProject.name = 'glowperf'
+
+def selectedLoaders = (providers.gradleProperty('loaders').orNull?.split(',')?.collect { it.trim() }?.findAll { it }) ?: [
+    'common', 'forge', 'neoforge', 'fabric', 'quilt'
+]
+selectedLoaders.each { include it }

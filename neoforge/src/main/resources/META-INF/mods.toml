@@ -1,0 +1,29 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+
+[[mods]]
+modId="glowperf"
+version="2.1.0"
+displayName="光影性能核心 GlowPerf"
+authors="Qwen Go"
+displayTest="IGNORE_ALL_VERSION"
+description='''物品光影 + 性能治理合并版（Minecraft 1.20.1 / NeoForge 47.1.106）。
+
+包含物品光晕、掉落物高亮、图标发光、渲染剔除、生成护栏、AI 冻结、性能诊断、详细坐标、小地图与路点。
+使用 /light and shadow、/performance optimization、/perf、/gp、/open the map、/close the map、/minimap、/wp 控制。
+NeoForge 适配使用 1.20.1 FML 公开事件，不使用 Mixin 或 Access Transformer。'''
+
+[[dependencies.glowperf]]
+modId="forge"
+mandatory=true
+versionRange="[47.1,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.glowperf]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1]"
+ordering="NONE"
+side="BOTH"

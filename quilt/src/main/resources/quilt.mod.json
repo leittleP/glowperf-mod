@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "quilt_loader": {
+    "group": "dev.qwen.glowperf",
+    "id": "glowperf",
+    "version": "2.1.0",
+    "metadata": {
+      "name": "光影性能核心 GlowPerf",
+      "description": "物品光影、渲染剔除、生成护栏、性能诊断、详细坐标、小地图与路点。",
+      "contributors": {
+        "Qwen Go": "Owner"
+      },
+      "license": "MIT"
+    },
+    "intermediate_mappings": "net.fabricmc:intermediary",
+    "entrypoints": {
+      "main": "dev.qwen.glowperf.fabric.GlowPerfFabric",
+      "client": "dev.qwen.glowperf.fabric.GlowPerfFabricClient"
+    },
+    "depends": [
+      {
+        "id": "quilt_loader",
+        "versions": ">=0.26.0"
+      },
+      {
+        "id": "quilted_fabric_api",
+        "versions": ">=7.6.0"
+      },
+      {
+        "id": "minecraft",
+        "versions": "1.20.1"
+      },
+      {
+        "id": "java",
+        "versions": ">=17"
+      }
+    ]
+  },
+  "mixin": "glowperf.mixins.json"
+}
