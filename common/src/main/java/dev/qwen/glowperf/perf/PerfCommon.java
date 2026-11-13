@@ -90,7 +90,7 @@ public final class PerfCommon {
          return;
       }
 
-      for (Entity entity : level.getEntities().getAll()) {
+      for (Entity entity : level.getAllEntities()) {
          if (entity instanceof Mob mob && EntityRules.isFrozen(mob.getId())) {
             mob.setNoAi(false);
             EntityRules.unregisterFreeze(mob.getId());
