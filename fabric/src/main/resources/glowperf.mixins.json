@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "glowperf-refmap.json",
   "mixins": [
+    "common.PlayerDropMixin",
     "server.ServerLevelMixin"
   ],
   "client": [

@@ -18,6 +18,7 @@ public final class MapEvents {
    private static final String DEVELOPER_TITLE = "GlowPerf 开发构建 Guide";
    private static final String LEGACY_MANUAL_TITLE = "光影性能核心 · 手册";
    private static final String AUTHOR = "GlowPerf";
+   private static final String PROTECTED_KEY = "glowperf_book";
 
    private MapEvents() {
    }
@@ -85,6 +86,10 @@ public final class MapEvents {
          return false;
       }
 
+      if (tag.getBoolean(PROTECTED_KEY)) {
+         return true;
+      }
+
       String title = tag.getString("title");
       return MANUAL_TITLE.equals(title)
          || CHANGELOG_TITLE.equals(title)
@@ -93,12 +98,18 @@ public final class MapEvents {
          || title.startsWith("光影性能核心");
    }
 
+   /** 三本书禁止丢弃，也不允许被当作合成材料。 */
+   public static boolean isProtectedBook(ItemStack stack) {
+      return isOurBook(stack);
+   }
+
    private static ItemStack createBook(String title, String[] pages) {
       ItemStack book = new ItemStack(Items.WRITTEN_BOOK);
       CompoundTag tag = book.getOrCreateTag();
       tag.putString("title", title);
       tag.putString("author", AUTHOR);
       tag.putByte("resolved", (byte) 1);
+      tag.putBoolean(PROTECTED_KEY, true);
 
       ListTag list = new ListTag();
       for (String page : pages) {

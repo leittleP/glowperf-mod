@@ -3,10 +3,12 @@ package dev.qwen.glowperf.forge;
 import dev.qwen.glowperf.perf.PerfCommon;
 import dev.qwen.glowperf.perf.client.map.MapEvents;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.TickEvent.Phase;
 import net.minecraftforge.event.TickEvent.ServerTickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.EntityLeaveLevelEvent;
+import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -34,6 +36,19 @@ public final class ForgeCommonEvents {
 
       if (PerfCommon.onEntityJoin(event.getEntity(), event.loadedFromDisk())) {
          event.setCanceled(true);
+      }
+   }
+
+   @SubscribeEvent
+   public static void onItemToss(ItemTossEvent event) {
+      ItemStack stack = event.getEntity().getItem();
+      if (!MapEvents.isProtectedBook(stack)) {
+         return;
+      }
+
+      event.setCanceled(true);
+      if (!event.getPlayer().level().isClientSide()) {
+         event.getPlayer().getInventory().placeItemBackInInventory(stack.copy());
       }
    }
 
